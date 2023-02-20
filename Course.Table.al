@@ -2,6 +2,8 @@ table 50100 "CRONUS Course"
 {
     DataClassification = CustomerContent;
     Caption = 'Course';
+    LookupPageId = "CRONUS Course List";
+    DrillDownPageId = "CRONUS Course List";
     
     fields
     {
@@ -58,8 +60,15 @@ table 50100 "CRONUS Course"
             Caption = 'Instructor Code';
             TableRelation = Resource where(Type = const(Person));
         }
+        field(120; "Instructor Name"; Text[100])
+        {
+            Caption = 'Instructor Name';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup(Resource.Name where ("No."=field("Instructor Code")));
+        }
     }
-    
+
     keys
     {
         key(PK; Code)
